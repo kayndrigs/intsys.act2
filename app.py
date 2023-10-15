@@ -68,7 +68,6 @@ def main():
         if fl is not None:
             filename = fl.name
             st.write(filename)
-            os.rename(filename,"input.csv")
             df = pd.read_csv(filename, encoding="ISO-8859-1") #add encoding mechanism
             with st.expander("Current Random Data Values"):
                 st.dataframe(df.T)
