@@ -40,7 +40,7 @@ def main():
     if selected == "Projects":
         # Page Title
         st.title("Classification Model - Personal Identifiable Information Sorter")
-        
+        st.caption("Note: To avoid manipulating your original spreadsheet file, you will have to download and upload updated_csv.csv")
         with open("plm_logo2.png", "rb") as f:
             data = base64.b64encode(f.read()).decode("utf-8")
             
@@ -53,12 +53,12 @@ def main():
                 unsafe_allow_html=True,
             )
         
+        
         st.sidebar.header("Choose your filter: ")
         menu = ["Home","About"]
         choice = st.sidebar.selectbox("Menu",menu)
         # Adjust padding of div container in title
         # st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
-        
         fl = st.file_uploader(":file_folder: Upload a File",type=(["csv","txt","xlsx","xls"]))
         
         # Will read the csv or similar dataset file
@@ -66,29 +66,41 @@ def main():
             filename = fl.name
             st.write(filename)
             df = pd.read_csv(filename, encoding="ISO-8859-1") #add encoding mechanism
+            with st.expander("Current Random Data Values"):
+                st.dataframe(df.T)
+                
+            st.subheader("Additional Input")
+        
+            with st.form(key='form1'):
+                with st.expander("Updated Random Data Values"):
+                    st.dataframe(df.T)
+                text = st.text_input("Enter Valid Name/ Email/ Phone Number/ Birth date (Note this cannot be reversed.)")
+                submit_button = st.form_submit_button(label='Submit')
+            
+                if submit_button:
+                    # fetching data from local directory
+                    new_data = {"random_values":str(text)}
+                    dataset_df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
+                    dataset_df.to_csv(filename, index=False)
         else:
             # change the directory is none
             df = pd.read_csv("random_dataset4.csv", encoding="ISO-8859-1")
-
-        with st.expander("Current Random Data Values"):
-            st.dataframe(df.T)
-            
-            
-        
-        
-        st.subheader("Additional Input")
-        
-        with st.form(key='form1'):
-            with st.expander("Updated Random Data Values"):
+            with st.expander("Current Random Data Values"):
                 st.dataframe(df.T)
-            text = st.text_input("Enter Valid Name/ Email/ Phone Number/ Birth date (Note this cannot be reversed.)")
-            submit_button = st.form_submit_button(label='Submit')
+                
+            st.subheader("Additional Input")
             
-            if submit_button:
-                # fetching data from local directory
-                new_data = {"random_values":str(text)}
-                dataset_df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
-                dataset_df.to_csv("random_dataset4.csv", index=False)
+            with st.form(key='form1'):
+                with st.expander("Updated Random Data Values"):
+                    st.dataframe(df.T)
+                text = st.text_input("Enter Valid Name/ Email/ Phone Number/ Birth date (Note this cannot be reversed.)")
+                submit_button = st.form_submit_button(label='Submit')
+                
+                if submit_button:
+                    # fetching data from local directory
+                    new_data = {"random_values":str(text)}
+                    dataset_df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
+                    dataset_df.to_csv("random_dataset4.csv", index=False)
                 
         # Process
         phone_df = pd.read_excel('phonePrefix2.xlsx')
