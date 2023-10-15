@@ -40,7 +40,6 @@ def main():
     if selected == "Projects":
         # Page Title
         st.title("Classification Model - Personal Identifiable Information Sorter")
-        st.caption("Note: To avoid manipulating your original spreadsheet file, you will have to download and upload updated_csv.csv")
         with open("plm_logo2.png", "rb") as f:
             data = base64.b64encode(f.read()).decode("utf-8")
             
