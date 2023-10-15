@@ -40,6 +40,10 @@ def main():
     if selected == "Projects":
         # Page Title
         st.title("Classification Model - Personal Identifiable Information Sorter")
+        st.caption("Note:")
+        st.caption("1. When uploading an external file, rename it to input.csv.")
+        st.caption("2. Store all the random files in a single column.")
+        st.caption("3. Change column name to random_values.")
         with open("plm_logo2.png", "rb") as f:
             data = base64.b64encode(f.read()).decode("utf-8")
             
@@ -73,7 +77,7 @@ def main():
             with st.form(key='form1'):
                 with st.expander("Updated Random Data Values"):
                     st.dataframe(df.T)
-                text = st.text_input("Enter Valid Name/ Email/ Phone Number/ Birth date (Note this cannot be reversed.)")
+                text = st.text_input("Enter Valid Name/ Email/ Phone Number/ Birth date (Note: this cannot be reversed.)")
                 submit_button = st.form_submit_button(label='Submit')
             
                 if submit_button:
