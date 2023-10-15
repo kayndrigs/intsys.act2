@@ -29,6 +29,12 @@ def main():
     )
     if selected == "Home":
         st.title("Welcome to Home Page")
+        st.caption("Created by: ")
+        st.caption("Bayono, Sean Marie B.")
+        st.caption("Marcial, Jerriane Hillary Heart S.")
+        st.caption("Ortega, Kazuhiro")
+        st.caption("Rodrigo, Kayne Uriel")
+        st.caption("Submitted to: Prof. Joel H. Cruz")
     if selected == "Dashboard":
         st.title("Welcome to Dashboard")
     if selected == "Projects":
