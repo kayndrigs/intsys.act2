@@ -62,7 +62,6 @@ def main():
             df = pd.read_csv(filename, encoding="ISO-8859-1") #add encoding mechanism
         else:
             # change the directory is none
-            os.chdir(r"/workspaces/intsys_act2")
             df = pd.read_csv("random_dataset4.csv", encoding="ISO-8859-1")
 
         with st.expander("Current Random Data Values"):
